@@ -9,10 +9,10 @@ using MyShop.Core.Models;
 
 namespace MyShop.DataAccess.InMemory
 {
-    class ProductRepository
+    public class ProductRepository
     {
         ObjectCache cache = MemoryCache.Default;
-        List<Product> products = new List<Product>();
+        List<Product> products;// = new List<Product>();
 
         public ProductRepository() {
             products = cache["products"] as List<Product>;
@@ -24,7 +24,7 @@ namespace MyShop.DataAccess.InMemory
 
         public void Commit() 
         {
-            cache["product"] = products;
+            cache["products"] = products;
         }
 
         public void Insert(Product product) 
@@ -44,7 +44,18 @@ namespace MyShop.DataAccess.InMemory
             //    throw new Exception("Product not found");
             //}
 
-            product = Find(product.Id);
+            //product = Find(product.Id);
+            Product productToUpdate = products.Find(p => p.Id == product.Id);
+
+            if (productToUpdate != null)
+            {
+                productToUpdate = product;
+            }
+            else
+            {
+                throw new Exception("Product no found");
+            }
+
 
         }
 

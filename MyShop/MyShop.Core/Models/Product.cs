@@ -11,6 +11,7 @@ namespace MyShop.Core.Models
     public class Product
     {
         public string Id { get; set; }
+        [Required]
         [StringLength(20)]
         [DisplayName("Product Name")]
         public string Name { get; set; }
