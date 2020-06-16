@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 using MyShop.DataAccess.InMemory;
 
 
@@ -14,10 +15,12 @@ namespace MyShop.WebUI.Controllers
     public class ProductManagerController : Controller
     {
         ProductRepository context;
+        ProductCategoryRepository productCategoriesRepository;
 
         public ProductManagerController()
         {
             context = new ProductRepository();
+            productCategoriesRepository = new ProductCategoryRepository();
         }
         // GET: ProductManager
         public ActionResult Index()
@@ -28,8 +31,10 @@ namespace MyShop.WebUI.Controllers
 
         public ActionResult Create() 
         {
-            Product product = new Product();
-            return View(product);
+            ProductManagerViewModel viewModel = new ProductManagerViewModel();
+            viewModel.Product = new Product();
+            viewModel.ProductCategories = productCategoriesRepository.Collection();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -49,6 +54,7 @@ namespace MyShop.WebUI.Controllers
 
         public ActionResult Edit(String Id) 
         {
+
             Product product = context.Find(Id);
             if (product==null)
             {
@@ -56,7 +62,10 @@ namespace MyShop.WebUI.Controllers
             }
             else
             {
-                return View(product);
+                ProductManagerViewModel viewModel = new ProductManagerViewModel();
+                viewModel.Product = product;
+                viewModel.ProductCategories = productCategoriesRepository.Collection();
+                return View(viewModel);
             }
         }
 
