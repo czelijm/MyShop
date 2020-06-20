@@ -14,7 +14,7 @@
                         Id = c.String(nullable: false, maxLength: 128),
                         BasketId = c.String(maxLength: 128),
                         ProductId = c.String(),
-                        Quantity = c.String(),
+                        Quantity = c.Int(nullable: false),
                         CreatedAt = c.DateTimeOffset(nullable: false, precision: 7),
                     })
                 .PrimaryKey(t => t.Id)
