@@ -88,11 +88,11 @@ namespace MyShop.Services
             basketContext.Commit();
         }
 
-        public void RemoveFromBasket(HttpContextBase httpContextBase, string itemId)
+        public void RemoveFromBasket(HttpContextBase httpContextBase, string Id)
         {
             Basket basket = GetBasket(httpContextBase, true);
             //Basket basket = basketContext.Find();
-            BasketItem item = basket.BasketItems.FirstOrDefault(i => i.Id == itemId);
+            BasketItem item = basket.BasketItems.FirstOrDefault(i => i.Id == Id);
             if (item != null)
             {
                 basket.BasketItems.Remove(item);
@@ -110,7 +110,7 @@ namespace MyShop.Services
                                join p in productContext.Collection() on b.ProductId equals p.Id
                                select new BasketItemViewModel()
                                {
-                                   Id = b.BasketId,
+                                   Id = b.Id,
                                    Image = p.Image,
                                    Price = p.Price,
                                    ProductName = p.Name,
