@@ -27,7 +27,7 @@
                 </ul>
                 @Html.Partial("_LoginPartial")
                 @{ 
-                    Html.RenderAction("BasketSummary", "Basket");
+                    Html.RenderAction("BasketSummary", "Basket",new { Country = "pl"});
                 }}
             </div>
         </div>

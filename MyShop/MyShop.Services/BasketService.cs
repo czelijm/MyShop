@@ -138,7 +138,7 @@ namespace MyShop.Services
 
                 decimal? basketTotal = (from item in basket.BasketItems
                                         join p in productContext.Collection()
-                                        on item.Id equals p.Id
+                                        on item.ProductId equals p.Id
                                         select item.Quantity * p.Price).Sum();
 
                 model.BasketCount = basketCount ?? 0;
