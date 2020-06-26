@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MyShop.Core.Models.OrderItem>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>Line Order</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("pl"), "{0:C}", item.Quantity * item.Price)
+        </td>
+    </tr>
+}
+    <tr>
+        <td colspan="3" style="text-align:right">
+            <strong>Order Total</strong>
+        </td>
+        <td>
+            <strong>@String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("pl"), "{0:C}", (from m in Model select m.Price*m.Quantity).Sum())</strong>
+        </td>
+    </tr>
+
+</table>
